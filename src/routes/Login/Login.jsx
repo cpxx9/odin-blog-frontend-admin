@@ -8,8 +8,6 @@ const Login = () => {
 
   const login = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    console.log(formData, e.target.username.value);
     const res = await fetch('http://localhost:8000/api/login', {
       mode: 'cors',
       method: 'POST',
