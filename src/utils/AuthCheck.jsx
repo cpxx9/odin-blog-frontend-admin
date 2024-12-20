@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { AdminContext } from '../App';
 
-const AuthGuard = () => {
+const AuthCheck = () => {
   const { authToken } = useContext(AdminContext);
 
   // If has token, return outlet in other case return navigate to login page
@@ -10,4 +10,4 @@ const AuthGuard = () => {
   return authToken ? <Outlet /> : <Navigate to="/login" />;
 };
 
-export default AuthGuard;
+export default AuthCheck;

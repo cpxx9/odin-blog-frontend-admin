@@ -1,29 +1,31 @@
 import { useContext } from 'react';
 import StyledLogin from './StyledLogin';
 import { AdminContext } from '../../App';
+import { Navigate } from 'react-router-dom';
 
 const Login = () => {
-  const { authToken, setAuthToken } = useContext(AdminContext);
+  const { authToken, updateAuthToken } = useContext(AdminContext);
 
   const login = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     console.log(formData, e.target.username.value);
     const res = await fetch('http://localhost:8000/api/login', {
+      mode: 'cors',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: {
+      body: JSON.stringify({
         username: e.target.username.value,
         password: e.target.password.value,
-      },
+      }),
     });
     const data = await res.json();
-    console.log(data);
+    updateAuthToken(data.token);
   };
   return (
     <StyledLogin>
       {authToken ? (
-        <h1>You are already logged in!</h1>
+        <Navigate to="/" />
       ) : (
         <>
           <h1>Login</h1>
