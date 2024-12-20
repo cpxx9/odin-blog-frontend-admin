@@ -5,16 +5,22 @@ import { createContext, useState } from 'react';
 
 const router = createBrowserRouter(routesConfig);
 
-// export const ExpenseContext = createContext({
-//   expenseTable: [],
-//   addToTable: () => {},
-// });
+export const AdminContext = createContext({
+  authToken: '',
+  updateAuthToken: () => {},
+});
 
 function App() {
+  const [authToken, setAuthToken] = useState('');
+
+  const updateAuthToken = (newToken) => {
+    setAuthToken(newToken);
+  };
+
   return (
-    // <ExpenseContext.Provider value={{ expenseTable, addToTable }}>
-    <RouterProvider router={router} />
-    // </ExpenseContext.Provider>
+    <AdminContext.Provider value={{ authToken, updateAuthToken }}>
+      <RouterProvider router={router} />
+    </AdminContext.Provider>
   );
 }
 
