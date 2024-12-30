@@ -1,9 +1,11 @@
+import Posts from '../../components/BlogPosts/Posts/Posts';
 import StyledRoot from './StyledRoot';
 
 const Root = () => {
   return (
     <StyledRoot>
-      <h1>Home</h1>
+      <h2>Posts</h2>
+      <Posts />
     </StyledRoot>
   );
 };

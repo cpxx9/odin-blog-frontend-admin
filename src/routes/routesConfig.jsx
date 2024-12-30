@@ -3,13 +3,17 @@ import Root from '../routes/Root/Root';
 import NotFound from '../routes/NotFound';
 import { createRoutesFromElements, Route } from 'react-router-dom';
 import Login from './Login/Login';
-import AuthCheck from '../utils/AuthCheck';
+import Register from './Register/Register';
+import RequireAuth from '../components/RequireAuth';
 
 const routesConfig = createRoutesFromElements(
   <Route path="/" element={<MainLayout />}>
-    <Route index element={<AuthCheck Component={<Root />} />} />
     <Route path="login" element={<Login />} />
-    <Route path="*" element={NotFound} />
+    <Route element={<RequireAuth />}>
+      <Route index element={<Root />} />
+      <Route path="register" element={<Register />} />
+      <Route path="*" element={<NotFound />} />
+    </Route>
   </Route>,
 );
 

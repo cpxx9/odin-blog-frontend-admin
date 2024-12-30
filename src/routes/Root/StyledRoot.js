@@ -1,4 +1,4 @@
 import styled from 'styled-components';
-const StyledRoot = styled.main``;
+const StyledRoot = styled.section``;
 
 export default StyledRoot;

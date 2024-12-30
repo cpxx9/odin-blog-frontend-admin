@@ -1,4 +1,4 @@
 import styled from 'styled-components';
-const StyledLogin = styled.main``;
+const StyledLogin = styled.section``;
 
 export default StyledLogin;
