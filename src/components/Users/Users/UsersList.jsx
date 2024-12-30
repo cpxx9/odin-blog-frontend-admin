@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import axios from '../../../api/axios';
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { v4 as uuidv4 } from 'uuid';
 import StyledUsersList from './StyledUsersList';
 
 const UsersList = () => {
   const [users, setUsers] = useState();
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
     let isMounted = true;
@@ -12,9 +13,10 @@ const UsersList = () => {
 
     const getUsers = async () => {
       try {
-        const res = await axios.get('/users', {
+        const res = await axiosPrivate.get('/users', {
           signal: controller.signal,
         });
+        console.log(res.data);
         isMounted && setUsers(res.data.data);
       } catch (err) {
         console.log(err);
