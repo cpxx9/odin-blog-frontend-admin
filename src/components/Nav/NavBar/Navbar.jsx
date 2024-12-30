@@ -1,10 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import StyledNavBar from './StyledNavbar';
-import useAuth from '../../../hooks/useAuth';
 
 const Navbar = () => {
-  const { auth } = useAuth();
   const location = useLocation();
   return (
     <StyledNavBar>
