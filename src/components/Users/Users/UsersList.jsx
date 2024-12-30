@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { v4 as uuidv4 } from 'uuid';
 import StyledUsersList from './StyledUsersList';
+import User from '../User/User';
 
 const UsersList = () => {
   const [users, setUsers] = useState();
@@ -34,15 +35,11 @@ const UsersList = () => {
     <StyledUsersList>
       {users?.length ? (
         <ul>
-          {users.map((user) => {
+          {users.map((user) => (
             <li key={uuidv4()}>
-              <h4>{user.username}</h4>
-              <p>
-                <em>Created on: </em>
-                {user.created}
-              </p>
-            </li>;
-          })}
+              <User userInfo={user} />
+            </li>
+          ))}
         </ul>
       ) : (
         <p>No users to display</p>
