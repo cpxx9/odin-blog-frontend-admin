@@ -3,7 +3,6 @@ import Root from '../routes/Root/Root';
 import NotFound from '../routes/NotFound';
 import { createRoutesFromElements, Route } from 'react-router-dom';
 import Login from './Login/Login';
-import Register from './Register/Register';
 import RequireAuth from '../components/RequireAuth';
 
 const routesConfig = createRoutesFromElements(
@@ -11,7 +10,6 @@ const routesConfig = createRoutesFromElements(
     <Route path="login" element={<Login />} />
     <Route element={<RequireAuth />}>
       <Route index element={<Root />} />
-      <Route path="register" element={<Register />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   </Route>,

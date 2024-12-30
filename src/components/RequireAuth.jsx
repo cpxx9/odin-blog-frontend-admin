@@ -6,7 +6,7 @@ const RequireAuth = () => {
   const location = useLocation();
   console.log(auth);
 
-  return auth?.accessToken ? (
+  return auth?.accessToken && auth?.userInfo?.admin ? (
     <Outlet />
   ) : (
     <Navigate to="/login" state={{ from: location, failAuth: true }} replace />
