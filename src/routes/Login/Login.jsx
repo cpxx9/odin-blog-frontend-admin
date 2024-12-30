@@ -1,7 +1,7 @@
 import axios from '../../api/axios';
 import { useEffect, useRef, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import StyledLogin from './StyledLogin';
 
 const LOGIN_URL = '/login';
