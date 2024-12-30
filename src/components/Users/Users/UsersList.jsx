@@ -23,7 +23,7 @@ const UsersList = () => {
         isMounted && setUsers(res.data.data);
       } catch (err) {
         console.log(err);
-        // navigate('/login', { state: { from: location }, replace: true });
+        navigate('/login', { state: { from: location }, replace: true });
       }
     };
     getUsers();
