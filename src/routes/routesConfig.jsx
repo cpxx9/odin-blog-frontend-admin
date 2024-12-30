@@ -5,15 +5,18 @@ import { createRoutesFromElements, Route } from 'react-router-dom';
 import Login from './Login/Login';
 import RequireAuth from '../components/RequireAuth';
 import Users from './Users/Users';
+import PersistLogin from '../components/PersistLogin';
 
 const routesConfig = createRoutesFromElements(
   <Route path="/" element={<MainLayout />}>
     <Route path="login" element={<Login />} />
-    <Route element={<RequireAuth />}>
-      <Route index element={<Root />} />
-      <Route path="/users" element={<Users />} />
-      <Route path="*" element={<NotFound />} />
+    <Route element={<PersistLogin />}>
+      <Route element={<RequireAuth />}>
+        <Route path="/" element={<Root />} />
+        <Route path="/users" element={<Users />} />
+      </Route>
     </Route>
+    <Route path="*" element={<NotFound />} />
   </Route>,
 );
 
