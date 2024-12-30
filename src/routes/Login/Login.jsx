@@ -77,13 +77,6 @@ const Login = () => {
         />
         <button>Sign in</button>
       </form>
-      <p>
-        Need an account?
-        <br />
-        <span className="line">
-          <Link to="/register">Sign up</Link>
-        </span>
-      </p>
     </StyledLogin>
   );
 };
