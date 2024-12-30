@@ -11,11 +11,8 @@ const Navbar = () => {
       <NavLink to="/">
         <h1>Home</h1>
       </NavLink>
-      {location.pathname !== '/login' && (
-        <NavLink to={auth.accessToken ? '/logout' : '/login'}>
-          {auth.accessToken ? 'Log out' : 'Sign in'}
-        </NavLink>
-      )}
+      <NavLink to="/users">Users</NavLink>
+      {location.pathname !== '/login' && <NavLink to="/logout">Log out</NavLink>}
     </StyledNavBar>
   );
 };

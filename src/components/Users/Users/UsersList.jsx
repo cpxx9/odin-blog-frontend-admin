@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from '../../../api/axios';
 import { v4 as uuidv4 } from 'uuid';
-import StyledUsers from './StyledUsers';
+import StyledUsersList from './StyledUsersList';
 
-const Users = () => {
+const UsersList = () => {
   const [users, setUsers] = useState();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Users = () => {
   }, []);
 
   return (
-    <StyledUsers>
+    <StyledUsersList>
       {users?.length ? (
         <ul>
           {users.map((user) => {
@@ -45,8 +45,8 @@ const Users = () => {
       ) : (
         <p>No users to display</p>
       )}
-    </StyledUsers>
+    </StyledUsersList>
   );
 };
 
-export default Users;
+export default UsersList;

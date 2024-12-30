@@ -1,4 +1,4 @@
 import styled from 'styled-components';
-const StyledUsers = styled.article``;
+const StyledUsers = styled.section``;
 
 export default StyledUsers;
