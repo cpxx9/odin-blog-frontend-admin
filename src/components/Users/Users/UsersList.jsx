@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { v4 as uuidv4 } from 'uuid';
 import StyledUsersList from './StyledUsersList';
@@ -7,6 +8,8 @@ import User from '../User/User';
 const UsersList = () => {
   const [users, setUsers] = useState();
   const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     let isMounted = true;
@@ -17,10 +20,10 @@ const UsersList = () => {
         const res = await axiosPrivate.get('/users', {
           signal: controller.signal,
         });
-        console.log(res.data);
         isMounted && setUsers(res.data.data);
       } catch (err) {
         console.log(err);
+        // navigate('/login', { state: { from: location }, replace: true });
       }
     };
     getUsers();
