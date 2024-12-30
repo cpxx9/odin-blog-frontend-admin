@@ -9,7 +9,11 @@ const RequireAuth = () => {
   return auth?.accessToken && auth?.userInfo?.admin ? (
     <Outlet />
   ) : (
-    <Navigate to="/login" state={{ from: location, failAuth: true }} replace />
+    <Navigate
+      to="/login"
+      state={{ from: location, failAuth: true, isAdmin: auth?.userInfo?.admin }}
+      replace
+    />
   );
 };
 
