@@ -6,7 +6,7 @@ import useAuth from '../hooks/useAuth';
 const PersistLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
   const refresh = useRefreshToken();
-  const { auth } = useAuth();
+  const { auth, persist } = useAuth();
 
   useEffect(() => {
     let isMounted = true;
@@ -27,7 +27,7 @@ const PersistLogin = () => {
 
   useEffect(() => {}, [isLoading]);
 
-  return <>{isLoading ? <p>Loading...</p> : <Outlet />}</>;
+  return <>{!persist ? <Outlet /> : isLoading ? <p>Loading...</p> : <Outlet />}</>;
 };
 
 export default PersistLogin;
