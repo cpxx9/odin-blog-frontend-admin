@@ -40,8 +40,7 @@ const Login = () => {
         withCredentials: true,
       });
       const accessToken = res?.data?.token;
-      const userInfo = res?.data?.user;
-      setAuth({ user, userInfo, accessToken });
+      setAuth({ user, accessToken });
       resetUser();
       setPwd('');
       navigate(from, { replace: true });
