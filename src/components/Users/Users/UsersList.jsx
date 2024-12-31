@@ -22,7 +22,7 @@ const UsersList = () => {
         });
         isMounted && setUsers(res.data.data);
       } catch (err) {
-        console.log(err);
+        console.error(err);
         navigate('/login', { state: { from: location }, replace: true });
       }
     };
