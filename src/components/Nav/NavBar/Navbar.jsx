@@ -4,6 +4,7 @@ import StyledNavBar from './StyledNavbar';
 import useLogout from '../../../hooks/useLogout';
 
 const Navbar = () => {
+  const linkClass = ({ isActive }) => (isActive ? 'active-link navlink' : 'navlink');
   const navigate = useNavigate();
   const logout = useLogout();
 
@@ -15,13 +16,15 @@ const Navbar = () => {
   const location = useLocation();
   return (
     <StyledNavBar>
-      <NavLink to="/">
-        <h1>Home</h1>
+      <NavLink className={linkClass} to="/">
+        <p>POSTS</p>
       </NavLink>
-      <NavLink to="/users">Users</NavLink>
+      <NavLink className={linkClass} to="/users">
+        USERS
+      </NavLink>
       {location.pathname !== '/login' && (
-        <NavLink to="/logout" onClick={signOut}>
-          Log out
+        <NavLink className={linkClass} to="/logout" onClick={signOut}>
+          LOG OUT
         </NavLink>
       )}
     </StyledNavBar>
