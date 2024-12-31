@@ -3,12 +3,13 @@ import { useEffect, useRef, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate, useLocation } from 'react-router-dom';
 import StyledLogin from './StyledLogin';
-import useLocalStorage from '../../hooks/useLocalStorage';
+import useInput from '../../hooks/useInput';
+import useToggle from '../../hooks/useToggle';
 
 const LOGIN_URL = '/login';
 
 const Login = () => {
-  const { setAuth, persist, setPersist } = useAuth();
+  const { setAuth } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,9 +19,10 @@ const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
 
-  const [user, setUser] = useLocalStorage('user', ''); //useState('');
+  const [user, resetUser, userAttributes] = useInput('user', '');
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
+  const [check, toggleCheck] = useToggle('persist', false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -40,6 +42,7 @@ const Login = () => {
       const accessToken = res?.data?.token;
       const userInfo = res?.data?.user;
       setAuth({ user, userInfo, accessToken });
+      resetUser();
       setPwd('');
       navigate(from, { replace: true });
     } catch (err) {
@@ -48,13 +51,13 @@ const Login = () => {
     }
   };
 
-  const togglePersist = () => {
-    setPersist((prev) => !prev);
-  };
+  // const togglePersist = () => {
+  //   setPersist((prev) => !prev);
+  // };
 
-  useEffect(() => {
-    localStorage.setItem('persist', persist);
-  }, [persist]);
+  // useEffect(() => {
+  //   localStorage.setItem('persist', persist);
+  // }, [persist]);
 
   return (
     <StyledLogin>
@@ -71,8 +74,7 @@ const Login = () => {
           id="username"
           ref={userRef}
           autoComplete="off"
-          onChange={(e) => setUser(e.target.value)}
-          value={user}
+          {...userAttributes}
           required
         />
         <label htmlFor="password">Password:</label>
@@ -86,7 +88,7 @@ const Login = () => {
         />
         <button>Sign in</button>
         <div className="persistCheck">
-          <input type="checkbox" id="persist" onChange={togglePersist} checked={persist} />
+          <input type="checkbox" id="persist" onChange={toggleCheck} checked={check} />
           <label htmlFor="persist">Remeber this device?</label>
         </div>
       </form>
