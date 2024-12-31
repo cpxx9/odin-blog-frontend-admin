@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate, useLocation } from 'react-router-dom';
 import StyledLogin from './StyledLogin';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 const LOGIN_URL = '/login';
 
@@ -17,7 +18,7 @@ const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
 
-  const [user, setUser] = useState('');
+  const [user, setUser] = useLocalStorage('user', ''); //useState('');
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
 
