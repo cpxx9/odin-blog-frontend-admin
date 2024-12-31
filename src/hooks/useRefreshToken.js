@@ -14,8 +14,10 @@ const useRefreshToken = () => {
       return {
         ...prev,
         accessToken: res.data.token,
-        admin: res.data.user.admin,
-        author: res.data.user.author,
+        userInfo: {
+          admin: res.data.user.admin,
+          author: res.data.user.author,
+        },
       };
     });
     return res.data.token;
