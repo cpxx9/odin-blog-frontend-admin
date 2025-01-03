@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import StyledUser from './StyledUser';
-import axios from '../../../api/axios';
+import { axiosPrivate } from '../../../api/axios';
 
 const User = ({ userInfo }) => {
   const [errMsg, setErrMsg] = useState('');
@@ -18,7 +18,7 @@ const User = ({ userInfo }) => {
     e.preventDefault();
     setErrMsg('');
     try {
-      const res = await axios.delete(DELETE_URL, { withCredentials: true });
+      const res = await axiosPrivate.delete(DELETE_URL);
     } catch (err) {
       const errDat = err.code === 'ERR_NETWORK' ? 'Server error' : err.response.data.msg;
       console.log(err);
