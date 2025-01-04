@@ -1,10 +1,12 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import StyledNewPost from './StyledNewPost';
 import { Editor } from '@tinymce/tinymce-react';
 import useInput from '../../hooks/useInput';
+import useAuth from '../../hooks/useAuth';
 
 const NewPost = ({ posts, setPosts }) => {
+  const { auth } = useAuth();
   const editorRef = useRef(null);
   const axiosPrivate = useAxiosPrivate();
 
@@ -18,7 +20,8 @@ const NewPost = ({ posts, setPosts }) => {
       const res = await axiosPrivate.post('/posts', JSON.stringify({ title, subtitle, content }), {
         headers: { 'Content-Type': 'application/json' },
       });
-      const newPosts = [...posts, res.data.data];
+      const newPost = { ...res.data.data, author: { username: auth.user } };
+      const newPosts = [...posts, newPost];
       setPosts(newPosts);
       resetTitle();
       resetSubtitle();
