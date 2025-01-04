@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 import axios from '../../../api/axios';
 import { v4 as uuidv4 } from 'uuid';
 import StyledPosts from './StyledPosts';
 
-const Posts = () => {
-  const [posts, setPosts] = useState();
-
+const Posts = ({ posts, setPosts }) => {
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
@@ -48,6 +47,10 @@ const Posts = () => {
       )}
     </StyledPosts>
   );
+};
+
+Posts.propTypes = {
+  posts: PropTypes.array,
 };
 
 export default Posts;

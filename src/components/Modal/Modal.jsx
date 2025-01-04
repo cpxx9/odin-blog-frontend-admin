@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import StyledModal from './StyledModal';
 
-const Modal = ({ children, open = false, onClose, title }) => {
+const Modal = ({ children, open = false, onClose = () => {}, title = 'Modal' }) => {
   if (!open) return null;
 
   return createPortal(
@@ -17,6 +18,12 @@ const Modal = ({ children, open = false, onClose, title }) => {
     </>,
     document.getElementById('portal'),
   );
+};
+
+Modal.propTypes = {
+  posts: PropTypes.array,
+  title: PropTypes.string,
+  onClose: PropTypes.func,
 };
 
 export default Modal;

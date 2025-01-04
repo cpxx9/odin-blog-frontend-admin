@@ -6,15 +6,16 @@ import StyledRoot from './StyledRoot';
 
 const Root = () => {
   const [isModelOpen, setIsModelOpen] = useState(false);
+  const [posts, setPosts] = useState();
 
   return (
     <StyledRoot>
       <h2>Posts</h2>
       <button onClick={() => setIsModelOpen(true)}>New Post</button>
       <Modal open={isModelOpen} onClose={() => setIsModelOpen(false)} title="New Blog post">
-        <NewPost />
+        <NewPost posts={posts} setPosts={setPosts} />
       </Modal>
-      <Posts />
+      <Posts posts={posts} setPosts={setPosts} />
     </StyledRoot>
   );
 };
