@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import StyledUser from './StyledUser';
 import { axiosPrivate } from '../../../api/axios';
+import PropTypes from 'prop-types';
 
-const User = ({ userInfo, users, setUsers }) => {
+const User = ({ userInfo = {}, users = [], setUsers = () => {} }) => {
   const [errMsg, setErrMsg] = useState('');
 
   const DELETE_URL = `/users/${userInfo.id}`;
@@ -18,18 +19,18 @@ const User = ({ userInfo, users, setUsers }) => {
     e.preventDefault();
     setErrMsg('');
     try {
-      const res = await axiosPrivate.delete(DELETE_URL);
+      await axiosPrivate.delete(DELETE_URL);
       const newUsers = users.filter((user) => user.id !== userInfo.id);
       setUsers(newUsers);
     } catch (err) {
       const errDat = err.code === 'ERR_NETWORK' ? 'Server error' : err.response.data.msg;
-      console.log(err);
-      setErrMsg(errDat);
+      setErrMsg(errDat || err);
     }
   };
 
   return (
     <StyledUser>
+      {errMsg && <p>{errMsg}</p>}
       <h4>{userInfo.username}</h4>
       <p>
         {userInfo.firstname} {userInfo.lastname}
@@ -54,6 +55,12 @@ const User = ({ userInfo, users, setUsers }) => {
       <button>Edit</button>
     </StyledUser>
   );
+};
+
+User.propTypes = {
+  userInfo: PropTypes.object,
+  users: PropTypes.array,
+  setUsers: PropTypes.func,
 };
 
 export default User;
