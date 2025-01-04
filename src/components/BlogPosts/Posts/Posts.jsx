@@ -14,6 +14,7 @@ const Posts = ({ posts, setPosts }) => {
         const res = await axios.get('/posts', {
           signal: controller.signal,
         });
+        console.log(res);
         isMounted && setPosts(res.data.data);
       } catch (err) {
         console.log(err);
@@ -31,16 +32,11 @@ const Posts = ({ posts, setPosts }) => {
     <StyledPosts>
       {posts?.length ? (
         <ul>
-          {posts.map((post) => {
+          {posts.map((post) => (
             <li key={uuidv4()}>
               <h4>{post.title}</h4>
-              <p>{post.subtitle}</p>
-              <p>
-                <em>Created by: </em>
-                {post.author}
-              </p>
-            </li>;
-          })}
+            </li>
+          ))}
         </ul>
       ) : (
         <p>No posts to display</p>

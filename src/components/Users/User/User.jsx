@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import StyledUser from './StyledUser';
-import { axiosPrivate } from '../../../api/axios';
 import PropTypes from 'prop-types';
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 
 const User = ({ userInfo = {}, users = [], setUsers = () => {} }) => {
   const [errMsg, setErrMsg] = useState('');
+  const axiosPrivate = useAxiosPrivate();
 
   const DELETE_URL = `/users/${userInfo.id}`;
 

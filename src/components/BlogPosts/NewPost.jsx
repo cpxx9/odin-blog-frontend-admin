@@ -1,19 +1,30 @@
 import { useRef, useEffect } from 'react';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import StyledNewPost from './StyledNewPost';
 import { Editor } from '@tinymce/tinymce-react';
 import useInput from '../../hooks/useInput';
 
 const NewPost = ({ posts, setPosts }) => {
   const editorRef = useRef(null);
+  const axiosPrivate = useAxiosPrivate();
 
   const [title, resetTitle, titleAttributes] = useInput('title', '');
   const [subtitle, resetSubtitle, subtitleAttributes] = useInput('subtitle', '');
   const [content, resetContent, contentAttributes] = useInput('content', '');
 
-  const handleNewPost = (e) => {
+  const handleNewPost = async (e) => {
     e.preventDefault();
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
+    try {
+      const res = await axiosPrivate.post('/posts', JSON.stringify({ title, subtitle, content }), {
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const newPosts = [...posts, res.data.data];
+      setPosts(newPosts);
+      resetTitle();
+      resetSubtitle();
+      resetContent();
+    } catch (err) {
+      console.log(err);
     }
   };
 

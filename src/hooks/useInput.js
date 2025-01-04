@@ -8,7 +8,6 @@ const useInput = (key, initValue) => {
   const attributeObj = {
     value,
     onChange: (e) => {
-      console.log(e);
       e.target ? setValue(e.target.value) : setValue(String(e));
     },
   };
