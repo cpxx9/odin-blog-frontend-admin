@@ -8,7 +8,9 @@ const Modal = ({ children, open = false, onClose, title }) => {
     <>
       <div className="overlay" />
       <StyledModal>
-        <button onClick={onClose}>X</button>
+        <button className="close-modal" onClick={onClose}>
+          X
+        </button>
         <h3>{title}</h3>
         {children}
       </StyledModal>

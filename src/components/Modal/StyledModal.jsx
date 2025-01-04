@@ -9,7 +9,7 @@ const StyledModal = styled.div`
   padding: 50px;
   z-index: 1000;
 
-  button {
+  .close-modal {
     position: absolute;
     top: 5%;
     right: 3%;
