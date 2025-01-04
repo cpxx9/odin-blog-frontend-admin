@@ -23,3 +23,6 @@ src/utils/template.xlsx
 *.njsproj
 *.sln
 *.sw?
+
+
+/public/tinymce/
