@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import StyledUser from './StyledUser';
 import { axiosPrivate } from '../../../api/axios';
 
-const User = ({ userInfo }) => {
+const User = ({ userInfo, users, setUsers }) => {
   const [errMsg, setErrMsg] = useState('');
 
   const DELETE_URL = `/users/${userInfo.id}`;
@@ -19,6 +19,8 @@ const User = ({ userInfo }) => {
     setErrMsg('');
     try {
       const res = await axiosPrivate.delete(DELETE_URL);
+      const newUsers = users.filter((user) => user.id !== userInfo.id);
+      setUsers(newUsers);
     } catch (err) {
       const errDat = err.code === 'ERR_NETWORK' ? 'Server error' : err.response.data.msg;
       console.log(err);

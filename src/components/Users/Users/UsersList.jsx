@@ -40,7 +40,7 @@ const UsersList = () => {
         <ul>
           {users.map((user) => (
             <li key={uuidv4()}>
-              <User userInfo={user} />
+              <User userInfo={user} users={users} setUsers={setUsers} />
             </li>
           ))}
         </ul>
