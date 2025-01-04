@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import axios from '../../../api/axios';
 import { v4 as uuidv4 } from 'uuid';
 import StyledPosts from './StyledPosts';
+import { Link } from 'react-router-dom';
 
 const Posts = ({ posts, setPosts }) => {
   useEffect(() => {
@@ -14,7 +15,6 @@ const Posts = ({ posts, setPosts }) => {
         const res = await axios.get('/posts', {
           signal: controller.signal,
         });
-        console.log(res);
         isMounted && setPosts(res.data.data);
       } catch (err) {
         console.log(err);
@@ -35,6 +35,11 @@ const Posts = ({ posts, setPosts }) => {
           {posts.map((post) => (
             <li key={uuidv4()}>
               <h4>{post.title}</h4>
+              <p>{post.author.username}</p>
+              <p>{`${post.author.firstname} ${post.author.lastname}`}</p>
+              <Link to={`/posts/${post.id}`} state={{ postInfo: post }}>
+                Edit post
+              </Link>
             </li>
           ))}
         </ul>
