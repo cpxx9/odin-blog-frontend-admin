@@ -15,11 +15,8 @@ const Post = () => {
     'subtitle',
     `${postInfo.subtitle}`,
   );
-  console.log(postInfo.content);
-  const [content, resetContent, contentAttributes] = useInput('content', postInfo.content);
+  const [content, resetContent, contentAttributes] = useInput('content', String(postInfo.content));
   const [published, setPublished] = useToggle('published', postInfo.published);
-
-  console.log(contentAttributes);
 
   return (
     <StyledPost>

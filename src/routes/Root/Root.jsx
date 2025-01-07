@@ -8,6 +8,12 @@ const Root = () => {
   const [isModelOpen, setIsModelOpen] = useState(false);
   const [posts, setPosts] = useState();
 
+  const persist = localStorage.getItem('persist');
+  const user = localStorage.getItem('user');
+  localStorage.clear();
+  localStorage.setItem('persist', persist);
+  localStorage.setItem('user', user);
+
   return (
     <StyledRoot>
       <h2>Posts</h2>
