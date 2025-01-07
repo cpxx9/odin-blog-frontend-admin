@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { jwtDecode } from 'jwt-decode';
 import StyledNewPost from './StyledNewPost';
 import { Editor } from '@tinymce/tinymce-react';
 import useInput from '../../hooks/useInput';
@@ -7,6 +8,7 @@ import useAuth from '../../hooks/useAuth';
 
 const NewPost = ({ posts, setPosts }) => {
   const { auth } = useAuth();
+  const decoded = auth?.accessToken ? jwtDecode(auth.accessToken) : undefined;
   const editorRef = useRef(null);
   const axiosPrivate = useAxiosPrivate();
 
@@ -21,7 +23,14 @@ const NewPost = ({ posts, setPosts }) => {
         headers: { 'Content-Type': 'application/json' },
       });
       // Need to decode token to get user info to pass back here
-      const newPost = { ...res.data.data, author: { username: auth.user } };
+      const newPost = {
+        ...res.data.data,
+        author: {
+          username: decoded.user.username,
+          firstname: decoded.user.firstname,
+          lastname: decoded.user.lastname,
+        },
+      };
       const newPosts = [...posts, newPost];
       setPosts(newPosts);
       resetTitle();
