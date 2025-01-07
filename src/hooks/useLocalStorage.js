@@ -12,6 +12,7 @@ const getLocalValue = (key, initValue) => {
 };
 
 const useLocalStorage = (key, initValue) => {
+  console.log(initValue);
   const [value, setValue] = useState(() => {
     return getLocalValue(key, initValue);
   });

@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import StyledPost from './StyledPost';
 import useInput from '../../hooks/useInput';
+import useToggle from '../../hooks/useToggle';
 
 const Post = () => {
   const editorRef = useRef(null);
@@ -14,7 +15,11 @@ const Post = () => {
     'subtitle',
     `${postInfo.subtitle}`,
   );
-  const [content, resetContent, contentAttributes] = useInput('content', `${postInfo.content}`);
+  console.log(postInfo.content);
+  const [content, resetContent, contentAttributes] = useInput('content', postInfo.content);
+  const [published, setPublished] = useToggle('published', postInfo.published);
+
+  console.log(contentAttributes);
 
   return (
     <StyledPost>
