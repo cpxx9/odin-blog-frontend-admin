@@ -23,6 +23,13 @@ const Post = () => {
         <input type="text" name="title" id="title" {...titleAttributes} />
         <label htmlFor="subtitle">Post Subtitle</label>
         <input {...subtitleAttributes} type="text" name="subtitle" id="subtitle" />
+        <label htmlFor="published">Published: </label>
+        <input
+          type="checkbox"
+          name="published"
+          id="published"
+          defaultChecked={postInfo.published}
+        />
         <label htmlFor="content">Post:</label>
         <Editor
           tinymceScriptSrc="/tinymce/tinymce.min.js"

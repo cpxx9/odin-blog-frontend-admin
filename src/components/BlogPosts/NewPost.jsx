@@ -22,7 +22,6 @@ const NewPost = ({ posts, setPosts }) => {
       const res = await axiosPrivate.post('/posts', JSON.stringify({ title, subtitle, content }), {
         headers: { 'Content-Type': 'application/json' },
       });
-      // Need to decode token to get user info to pass back here
       const newPost = {
         ...res.data.data,
         author: {
