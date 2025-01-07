@@ -53,7 +53,6 @@ const User = ({ userInfo = {}, users = [], setUsers = () => {} }) => {
         {`${updatedDate.getFullYear()}`}
       </p>
       <button onClick={handleDelete}>Delete</button>
-      <button>Edit</button>
     </StyledUser>
   );
 };

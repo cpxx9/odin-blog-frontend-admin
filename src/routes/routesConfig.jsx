@@ -7,6 +7,7 @@ import RequireAuth from '../components/RequireAuth';
 import Users from './Users/Users';
 import PersistLogin from '../components/PersistLogin';
 import Post from './Post/Post';
+import User from './User/User';
 
 const routesConfig = createRoutesFromElements(
   <Route path="/" element={<MainLayout />}>
@@ -14,8 +15,9 @@ const routesConfig = createRoutesFromElements(
     <Route element={<PersistLogin />}>
       <Route element={<RequireAuth />}>
         <Route path="/" element={<Root />} />
-        <Route path="/users" element={<Users />} />
         <Route path="/posts/:postId" element={<Post />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/users/:userId" element={<User />} />
       </Route>
     </Route>
     <Route path="*" element={<NotFound />} />

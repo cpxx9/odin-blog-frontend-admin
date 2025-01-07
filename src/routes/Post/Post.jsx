@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
-import StyledPost from '../../../StyledPost';
+import StyledPost from './StyledPost';
 import useInput from '../../hooks/useInput';
 
 const Post = () => {

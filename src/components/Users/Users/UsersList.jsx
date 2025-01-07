@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { v4 as uuidv4 } from 'uuid';
 import StyledUsersList from './StyledUsersList';
@@ -41,6 +41,9 @@ const UsersList = () => {
           {users.map((user) => (
             <li key={uuidv4()}>
               <User userInfo={user} users={users} setUsers={setUsers} />
+              <Link to={`/users/${user.id}`} state={{ userInfo: user }}>
+                Edit
+              </Link>
             </li>
           ))}
         </ul>
