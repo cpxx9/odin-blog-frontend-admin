@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import StyledUser from '../../components/Users/User/StyledUser';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
@@ -8,7 +9,6 @@ const User = () => {
   const { userInfo } = location.state;
 
   const handleAdminChange = async (e) => {
-    console.log(e.target.checked);
     try {
       await axiosPrivate.put(`/users/${userInfo.id}`, JSON.stringify({ admin: e.target.checked }), {
         headers: { 'Content-Type': 'application/json' },
@@ -55,6 +55,29 @@ const User = () => {
         onChange={handleAuthorChange}
         value="isAuthor"
       />
+
+      <article>
+        <h4>Comments</h4>
+        <button>Remove Selected</button>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Select</th>
+              <th scope="col">Content</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userInfo.comments.map((comment) => (
+              <tr key={uuidv4()}>
+                <td>
+                  <input type="checkbox" name="selected" id="selected" />
+                </td>
+                <td>{comment.content}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </article>
     </StyledUser>
   );
 };
