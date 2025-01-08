@@ -4,11 +4,13 @@ import { Editor } from '@tinymce/tinymce-react';
 import StyledPost from './StyledPost';
 import useInput from '../../hooks/useInput';
 import useToggle from '../../hooks/useToggle';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const Post = () => {
   const editorRef = useRef(null);
   const location = useLocation();
   const { postInfo } = location.state;
+  const axiosPrivate = useAxiosPrivate();
 
   const [title, resetTitle, titleAttributes] = useInput('title', `${postInfo.title}`);
   const [subtitle, resetSubtitle, subtitleAttributes] = useInput(
@@ -16,11 +18,28 @@ const Post = () => {
     `${postInfo.subtitle}`,
   );
   const [content, resetContent, contentAttributes] = useInput('content', String(postInfo.content));
-  const [published, setPublished] = useToggle('published', postInfo.published);
+  const [published, togglePublished] = useToggle('published', postInfo.published);
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      await axiosPrivate.put(
+        `/posts/${postInfo.id}`,
+        JSON.stringify({ title, subtitle, content, published }),
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true,
+        },
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <StyledPost>
       <form>
+        <button onClick={handleUpdate}>Update Post</button>
         <label htmlFor="title">Title: </label>
         <input type="text" name="title" id="title" {...titleAttributes} />
         <label htmlFor="subtitle">Post Subtitle</label>
@@ -31,6 +50,7 @@ const Post = () => {
           name="published"
           id="published"
           defaultChecked={postInfo.published}
+          onChange={togglePublished}
         />
         <label htmlFor="content">Post:</label>
         <Editor
