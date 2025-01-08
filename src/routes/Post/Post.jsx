@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import StyledPost from './StyledPost';
@@ -12,6 +12,7 @@ const Post = () => {
   const { postInfo } = location.state;
   const axiosPrivate = useAxiosPrivate();
 
+  const [showSavedPopUp, setShowSavedPopUp] = useState(false);
   const [title, resetTitle, titleAttributes] = useInput('title', `${postInfo.title}`);
   const [subtitle, resetSubtitle, subtitleAttributes] = useInput(
     'subtitle',
@@ -19,6 +20,15 @@ const Post = () => {
   );
   const [content, resetContent, contentAttributes] = useInput('content', String(postInfo.content));
   const [published, togglePublished] = useToggle('published', postInfo.published);
+
+  const handleShowSavedPopUp = () => setShowSavedPopUp(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSavedPopUp(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [showSavedPopUp]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -31,6 +41,7 @@ const Post = () => {
           withCredentials: true,
         },
       );
+      handleShowSavedPopUp();
     } catch (err) {
       console.log(err);
     }
@@ -38,6 +49,7 @@ const Post = () => {
 
   return (
     <StyledPost>
+      {showSavedPopUp && <p>Saved</p>}
       <form>
         <button onClick={handleUpdate}>Update Post</button>
         <label htmlFor="title">Title: </label>
