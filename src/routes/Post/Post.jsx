@@ -9,7 +9,6 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 const Post = () => {
   const editorRef = useRef(null);
   const location = useLocation();
-  console.log(location);
   const { postInfo } = location.state;
   const axiosPrivate = useAxiosPrivate();
 
