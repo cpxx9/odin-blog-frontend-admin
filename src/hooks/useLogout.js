@@ -5,9 +5,9 @@ const useLogout = () => {
   const { setAuth } = useAuth();
 
   const logout = async () => {
-    setAuth({});
     try {
       const res = await axiosPrivate.get('/logout');
+      setAuth({});
     } catch (err) {
       console.error(err);
     }
