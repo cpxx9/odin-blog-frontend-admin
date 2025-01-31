@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import StyledPost from './StyledPost';
 import useInput from '../../hooks/useInput';
@@ -11,6 +11,7 @@ const Post = () => {
   const location = useLocation();
   const { postInfo } = location.state;
   const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
 
   const [showSavedPopUp, setShowSavedPopUp] = useState(false);
   const [title, resetTitle, titleAttributes] = useInput('title', `${postInfo.title}`);
@@ -47,9 +48,19 @@ const Post = () => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await axiosPrivate.delete(`/posts/${postInfo.id}`);
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <StyledPost>
       {showSavedPopUp && <p>Saved</p>}
+      <button onClick={handleDelete}>Delete Post</button>
       <form>
         <button onClick={handleUpdate}>Update Post</button>
         <label htmlFor="title">Title: </label>
