@@ -25,7 +25,6 @@ const Posts = ({ posts, setPosts }) => {
         const res = await axios.get(PATH, {
           signal: controller.signal,
         });
-        console.log(res);
         isMounted && setPosts(res.data.data);
       } catch (err) {
         console.log(err);
