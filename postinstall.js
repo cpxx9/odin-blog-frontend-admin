@@ -1,7 +1,10 @@
 import fse from 'fs-extra';
 import path from 'path';
 const topDir = import.meta.dirname;
-fse.emptyDirSync(path.join(topDir, 'public', 'tinymce'));
-fse.copySync(path.join(topDir, 'node_modules', 'tinymce'), path.join(topDir, 'public', 'tinymce'), {
-  overwrite: true,
-});
+fse.emptyDirSync(String(path.join(topDir, 'public', 'tinymce')));
+fse.copySync(
+  String(path.join(topDir, 'node_modules', 'tinymce'), path.join(topDir, 'public', 'tinymce')),
+  {
+    overwrite: true,
+  },
+);
