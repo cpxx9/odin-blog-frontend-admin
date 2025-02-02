@@ -48,6 +48,18 @@ const Post = () => {
     }
   };
 
+  const substrs = ['<section', '<div', '</section', '</div', '<main', '</main', '<nav', '</nav'];
+
+  const checkIfStringStartsWith = (str, substrs) => {
+    return substrs.some((substr) => str.startsWith(substr));
+  };
+
+  const handleEditorChange = (e) => {
+    const content = editorRef.current.getContent().split('\n');
+    const newContent = content.filter((item) => !checkIfStringStartsWith(item, substrs));
+    contentAttributes.onChange(newContent.join(''));
+  };
+
   const handleDelete = async () => {
     try {
       await axiosPrivate.delete(`/posts/${postInfo.id}`);
@@ -81,7 +93,7 @@ const Post = () => {
           licenseKey="gpl"
           onInit={(_evt, editor) => (editorRef.current = editor)}
           value={contentAttributes.value}
-          onEditorChange={contentAttributes.onChange}
+          onEditorChange={handleEditorChange}
           init={{
             height: 500,
             menubar: false,
