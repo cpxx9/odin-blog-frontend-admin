@@ -9,12 +9,17 @@ const RequireAuth = () => {
   const decoded = auth?.accessToken ? jwtDecode(auth.accessToken) : undefined;
 
   const admin = decoded?.user.admin || false;
+  const author = decoded?.user.author || false;
 
-  if (auth?.accessToken && admin) {
+  if (auth?.accessToken && author) {
     return <Outlet />;
   } else {
     return (
-      <Navigate to="/login" state={{ from: location, failAuth: true, isAdmin: admin }} replace />
+      <Navigate
+        to="/login"
+        state={{ from: location, failAuth: true, isAuthor: author, isAdmin: admin }}
+        replace
+      />
     );
   }
 };

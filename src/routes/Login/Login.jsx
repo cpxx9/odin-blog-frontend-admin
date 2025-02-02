@@ -62,7 +62,7 @@ const Login = () => {
         {errMsg}
       </p>
       <h1>Login</h1>
-      {failAuth && <p>You must sign in as an admin!</p>}
+      {failAuth && <p>You must sign in as an admin or author!</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
         <input

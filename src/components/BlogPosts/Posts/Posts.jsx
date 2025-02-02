@@ -1,20 +1,31 @@
+import { jwtDecode } from 'jwt-decode';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import axios from '../../../api/axios';
 import { v4 as uuidv4 } from 'uuid';
 import StyledPosts from './StyledPosts';
 import { Link } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 
 const Posts = ({ posts, setPosts }) => {
+  const { auth } = useAuth();
+  const decoded = auth?.accessToken ? jwtDecode(auth.accessToken) : undefined;
+
+  let PATH = '/posts';
+  if (!decoded?.user?.admin) {
+    PATH = `posts?userId=${decoded?.user?.id}`;
+  }
+
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
 
     const getPosts = async () => {
       try {
-        const res = await axios.get('/posts', {
+        const res = await axios.get(PATH, {
           signal: controller.signal,
         });
+        console.log(res);
         isMounted && setPosts(res.data.data);
       } catch (err) {
         console.log(err);
