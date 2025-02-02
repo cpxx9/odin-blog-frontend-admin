@@ -10,6 +10,6 @@ const topDir = import.meta.dirname;
 // );
 
 fse.emptyDirSync('./public/tinymce');
-fse.copySync(String('./node_modules/tinymce', './public/tinymce'), {
+fse.copySync('./node_modules/tinymce', './public/tinymce'), {
   overwrite: true,
 });
