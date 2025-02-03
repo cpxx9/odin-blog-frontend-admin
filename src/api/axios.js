@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = String(import.meta.env.DATABASE_URL);
+const BASE_URL = import.meta.env.VITE_DATABASE_URL;
 
 export default axios.create({
   baseURL: BASE_URL,
