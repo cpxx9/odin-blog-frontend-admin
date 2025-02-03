@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://blogapi.cjplabs.com/api';
+const BASE_URL = String(import.meta.env.DATABASE_URL);
 
 export default axios.create({
   baseURL: BASE_URL,
