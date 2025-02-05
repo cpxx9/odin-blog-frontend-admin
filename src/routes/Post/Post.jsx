@@ -36,7 +36,13 @@ const Post = () => {
     try {
       await axiosPrivate.put(
         `/posts/${postInfo.id}`,
-        JSON.stringify({ title, subtitle, content, published }),
+        JSON.stringify({
+          title,
+          subtitle,
+          content,
+          published,
+          datepublished: published ? new Date() : null,
+        }),
         {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: true,
